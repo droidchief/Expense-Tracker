@@ -32,12 +32,19 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text("The chart"),
-        Expanded(child: ExpenseList(expenses: _registeredExpense))
-      ],
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Expense Tracker"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: ExpenseList(expenses: _registeredExpense))
+        ],
+      ),
+      ),
     );
   }
 }
