@@ -1,4 +1,4 @@
-import 'package:expense_tracker/expenses_screen.dart';
+import 'package:expense_tracker/screens/expenses_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       home: const ExpensesScreen(),
     );
