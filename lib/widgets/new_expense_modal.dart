@@ -1,3 +1,4 @@
+import 'package:expense_tracker/utils/app_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -11,17 +12,22 @@ class NewExpenseModal extends StatefulWidget {
 class _NewExpenseModalState extends State<NewExpenseModal> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
+  DateTime? _selectedDate;
 
-  void _openDatePicker() {
+  void _openDatePicker() async {
     final now = DateTime.now();
     final firstDate = DateTime(now.year - 1);
 
-    showDatePicker(
+    final pickedDate = await showDatePicker(
         context: context,
         initialDate: now,
         firstDate: firstDate,
         lastDate: now
     );
+
+    setState(() {
+      _selectedDate = pickedDate;
+    });
   }
 
   @override
@@ -62,7 +68,10 @@ class _NewExpenseModalState extends State<NewExpenseModal> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text("Selected date"),
+                    Text(_selectedDate == null
+                        ? "No date selected"
+                        : dateFormatter.format(_selectedDate!)
+                    ),
                     IconButton(
                         onPressed: _openDatePicker,
                         icon: const Icon(Icons.calendar_month)
