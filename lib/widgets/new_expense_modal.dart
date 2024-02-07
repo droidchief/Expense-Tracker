@@ -12,6 +12,18 @@ class _NewExpenseModalState extends State<NewExpenseModal> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
 
+  void _openDatePicker() {
+    final now = DateTime.now();
+    final firstDate = DateTime(now.year - 1);
+
+    showDatePicker(
+        context: context,
+        initialDate: now,
+        firstDate: firstDate,
+        lastDate: now
+    );
+  }
+
   @override
   void dispose() {
     _titleController.dispose();
@@ -32,13 +44,33 @@ class _NewExpenseModalState extends State<NewExpenseModal> {
               label: Text("Title")
             ),
           ),
-          TextField(
-            controller: _amountController,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              prefix: Text("\$ "),
-              label: Text("Amount")
-            ),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _amountController,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                      prefix: Text("\$ "),
+                      label: Text("Amount")
+                  ),
+                ),
+              ),
+              const Gap(16),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text("Selected date"),
+                    IconButton(
+                        onPressed: _openDatePicker,
+                        icon: const Icon(Icons.calendar_month)
+                    )
+                  ],
+                ),
+              )
+            ],
           ),
           const Gap(20),
           Row(
